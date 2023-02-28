@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+     <!--switalert2-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'almendra_app/styles_opciones.css' %}">
+    <title>Almendra Menu</title>
+</head>
+<body>
+    {% block header %}
+    <header>
+        <div class="div_logo">
+             
+            <img src="{% static 'almendra_app/img/logo.png' %}" class="logo" >
+        </div>
+      
+        <div class="div_agregar">
+            <nav class="nav_agregar">
+                <ul class="list">
+                 
+                    <li class="list_item list_item--click">
+                        <div class="list_button list_button--click">
+                            <img src="{% static 'almendra_app/icons/edit.png' %}" class="list_img" width="20">
+                            <a href="#" class='nav_link'>Agregar</a>
+ <!--<img src="{% static 'almendra_app/icons/arrow.png' %}" class="list_arrow">-->            
+                        </div>
+            
+                        <ul class="list_show">
+                            <li class="list_inside">
+                                <a href="{% url 'agregar_pasteleria' %}" class="nav_link nav_link--inside">Pasteleria</a>                             </li>
+                            <li class="list_inside">
+                                <a href="{% url 'agregar_brunch' %}" class="nav_link nav_link--inside">Brunch´s</a> 
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'agregar_bebidas' %}" class="nav_link nav_link--inside" >Bebidas</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'agregar_salados' %}" class= 'nav_link nav_link--inside'> Salados</a> 
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'agregar_cafes' %}" class="nav_link nav_link--inside">Cafes</a>
+                            </li>
+                        </ul>
+            
+                    </li>
+                </ul>
+             
+            </nav>
+        </div>
+
+            <!--ELIMINAR-->
+
+        <div class="div_eliminar">   
+            <nav class="nav_eliminar">
+                <ul class="list">
+                 
+                    <li class="list_item list_item--click">
+                        <div class="list_button list_button--click">
+                            <img src="{% static 'almendra_app/icons/edit.png' %}" class="list_img" width="20">
+                            <a href="#" class='nav_link'>Eliminar</a>
+                            <!--<img src="{% static 'almendra_app/icons/arrow.png' %}" class="list_arrow">-->
+                        </div>
+            
+                        <ul class="list_show">
+                            <li class="list_inside">
+                                <a href="{% url 'eliminar_pasteleria_template' %}" class="nav_link nav_link--inside">Pasteleria</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'eliminar_brunchs_template' %}" class="nav_link nav_link--inside">Brunch´s</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'eliminar_bebidas_template' %}" class="nav_link nav_link--inside">Bebidas</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'eliminar_salados_template' %}" class="nav_link nav_link--inside">Salados</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="{% url 'eliminar_cafe_template' %}" class="nav_link nav_link--inside">Cafes</a>
+                            </li>
+                        </ul>
+            
+                    </li>
+                </ul>
+             
+            </nav>
+        </div> 
+      <!--EDITAR-->
+        <div class="div_editar">
+            <nav class="nav_editar">
+                <ul class="list">
+                 
+                    <li class="list_item list_item--click">
+                        <div class="list_button list_button--click">
+                            <img src="{% static 'almendra_app/icons/edit.png' %}" class="list_img" width="20">
+                            <a href="#" class='nav_link'>Editar</a>
+                            <!--<img src="{% static 'almendra_app/icons/arrow.png' %}" class="list_arrow">-->
+            
+                        </div>
+            
+                        <ul class="list_show">
+                            <li class="list_inside">
+                                <a href="" class="nav_link nav_link--inside">Pasteleria</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="" class="nav_link nav_link--inside">Brunch´s</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="" class="nav_link nav_link--inside">Bebidas</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="" class="nav_link nav_link--inside">Salados</a>
+                            </li>
+                            <li class="list_inside">
+                                <a href="" class="nav_link nav_link--inside">Cafes</a>
+                            </li>
+                        </ul>
+            
+                    </li>
+                </ul>
+                 
+            </nav>
+
+        </div>
+
+
+        <div class="home_icon_div">
+        
+        <a href="#"> <img class='home_icon' src="{% static 'almendra_app/icons/home.png' %}" alt=""></a>
+
+         </div>
+
+
+                
+    </header>
+    
+    <section class="menu_horizontal">
+        <div class="menu_container">
+            <a href="">Pasteleria</a>
+           <!-- <a href="">Desayunos & Meriendas</a>-->
+            <a href="{% url 'brunch' %}">Brunch´s</a>
+            <a href="{% url 'bebidas' %}">Bebidas</a>
+            <a href="{% url 'salados' %}">Salados</a>
+            <a href="{% url 'cafes' %}"">Cafes</a>
+        </div>
+      
+    </section>
+    {% endblock %}
+
+{% block populares %}
+{% endblock %}
+
+
+
+    {% block pasteleria %}
+    {% endblock %}
+
+   
+    {% block brunch %}
+    {% endblock %}
+    {% block js_delete_salados %}
+    <script>
+        function eliminarProducto_salados(id){
+            Swal.fire({
+                'title':'¿Esta seguro que quiere eliminar?',
+                'text':'esta accion no se puede deshace',
+                'icon': 'question',
+                'showCancelButton': 'true',
+                'confirmButtonText': 'Si, Eliminar',
+                'cancelButtonText': 'No, Cancelar',
+                'confirmButtonColor': '#bc3545',
+            })
+            .then (function(result) {
+                if (result.isConfirmed){
+                    window.location.href = '/eliminar_salados/' + id + '/'
+                }
+            })
+        }
+    </script>
+    {% endblock %}
+
+
+    <h1 class="titulo_salados">Salados</h1>
+
+
+    {% block salados %}
+    <section class="mid_salados">
+            
+
+        {% for s in form_salados %}
+        
+        <div class="container_salados">
+             <div class="targeta_salados">
+                <img src={{ s.imagen|safe }}
+                <h4>{{ s.titulo|safe }}</h4>
+            
+                <p>{{ s.descripcion }}</p>
+                <h3>{{ s.precio }}</h3>
+             <!--  <a href="#" onclick = 'editarProducto_salados({{ s.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
+           -->    <a href="#" onclick = 'eliminarProducto_salados({{ s.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+
+            </div>
+        </div>
+        
+        
+        {% endfor %}
+    </section>
+
+
+    {% endblock %}
+
+    {% block bebidas %}
+    {% endblock %}
+
+    
+    {% block cafes %}  
+    {% endblock %}
+
+ <footer>
+
+ </footer>
+
+  <script src="{% static 'almendra_app/script_opciones.js' %}"></script>
+  <!--SWEETALERT-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% if messages %}
+  {% for m in messages %}
+    <script>
+        Swal.fire({
+            'title':'felicitaciones',
+            'text':  '{{m}}',
+            'icon': 'success',
+        })
+    </script>
+{% endfor%}
+{% endif %}
+</body>
+</html>

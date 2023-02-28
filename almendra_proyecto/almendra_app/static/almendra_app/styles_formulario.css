@@ -1,0 +1,51 @@
+body{
+   
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #e5e5f7;
+opacity: 0.8;
+background-image:  radial-gradient(#ee3ce7 0.5px, transparent 0.5px), radial-gradient(#ee3ce7 0.5px, #e5e5f7 0.5px);
+background-size: 20px 20px;
+background-position: 0 0,10px 10px;
+display: flex;
+min-height: 100vh;
+}
+
+.form{
+  background-color: #fff;
+  margin: auto;
+  width:  90%;
+  max-width: 400px;
+  padding: 4.5em 3em;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px -5px rgb(0 0 0 / 30%);
+  text-align: center;
+}
+
+.form__title{
+  font-size: 2rem;
+  margin-bottom: .5em;
+  
+}
+
+.form__container{
+  margin-top: 3em;
+  display: grid;
+  gap:2.5em;
+ 
+}
+
+
+.form_group{
+  position: relative;
+  --color:#5757577e;
+  
+}
+
+.form__input{
+  width: 100%;
+  background:none;
+  color: #706c6c;
+  font-size: 1rem;
+  padding: .6em  .3em;
+}
+

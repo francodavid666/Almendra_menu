@@ -1,0 +1,61 @@
+
+
+/*PASTELERIA*/
+
+.container_pasteleria{
+    width: 100%;
+    max-width: 1200px;
+    height: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+}
+
+.container_pasteleria .targeta_pasteleria{
+    width: 150px;
+    height: 180px;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    transition: all 0.25s;
+    background-color: #322525;
+    
+}
+
+.container_pasteleria .targeta_pasteleria:hover{
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0,0,0,0.2);
+}
+
+.container_pasteleria .targeta_pasteleria img{
+   
+    width: 200px;
+    height: 100px;
+    margin-bottom: 10px;
+    
+}
+
+.container_pasteleria .targeta_pasteleria h4{
+margin: auto;
+font-weight: 600px;
+color: white;
+margin-bottom: 20px;
+}
+
+.container_pasteleria .targeta_pasteleria p{
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 0 1rem;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+}
+
+.container_pasteleria .targeta_pasteleria a{
+    font-weight: 500px;
+    text-decoration: none;
+    color: #3498db;
+}

@@ -1,0 +1,40 @@
+{% extends 'almendra_app/inicio.html' %}
+
+{% load static %}
+
+
+
+{% block pasteleria %}
+<form action="">
+<section class="mid_pasteleria"></section>
+<div class="container_pasteleria">
+     <div class="targeta_pasteleria">
+        <!--<img src="{% static 'almendra_app/img/medialuna.jpeg' %}" class="medialuna" id="medialunaID">-->
+        <img src="{% static 'almendra_app/img/medialuna.jpeg' %}" class="medialuna" id="medialunaID">{{ form.imagen }}
+        <h4>{{ form.titulo }}</h4>
+        <p>{{ form.descripcion }}</p>
+        <h3>{{ form.precio }}</h3>
+        
+    </div>
+</div>
+</form>
+</section>
+{% endblock %}
+
+
+
+{% block bebidas %}
+{% endblock %}
+
+
+{% block brunch %}
+{% endblock %}
+
+{% block salados %}
+{% endblock %}
+
+{% block cafes %}
+{% endblock %}
+
+
+
