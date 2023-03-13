@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+     <!--switalert2-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'almendra_app/styles_formulario.css' %}">
+    <title>Almendra Menu</title>
+</head>
+<body>
+  {{ form.id }}
+    <form class ="form" action="{% url 'editar_brunch_img' id %}" method = "POST" enctype="multipart/form-data">{% csrf_token %}
+      <h2 class="form__title">{{ titulo }}</h2>
+  
+       <div class="form__container">
+            <div class="form_group">
+              <label for="imagen" class="form__label">Imagen:</label>
+              <div class="ckeditor">
+                {{ form.imagen }}
+            
+
+            </div>
+        
+          
+          
+            <button  class="form__submit" value="entrar" type ="submit" class="boton">Guardar cambios</button>
+      </div>
+      </form>
+     
+  
+
+</body>
+</html>
+
+

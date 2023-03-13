@@ -31,32 +31,84 @@
     
     <section class="menu_horizontal">
         <div class="menu_container">
-            <a href="">Pasteleria</a>
+            <a href="{% url 'opciones' %}">Todos</a>
+            <a href="{% url 'opciones_populares' %}">Populares</a>
+            <a href="{% url 'opciones_pasteleria' %}">Pasteleria</a>
            <!-- <a href="">Desayunos & Meriendas</a>-->
-            <a href="{% url 'brunch' %}">Brunch´s</a>
-            <a href="{% url 'bebidas' %}">Bebidas</a>
-            <a href="{% url 'salados' %}">Salados</a>
-            <a href="{% url 'cafes' %}"">Cafes</a>
+            <a href="{% url 'opciones_brunch' %}">Brunch´s</a>
+            <a href="{% url 'opciones_bebidas' %}">Bebidas</a>
+            <a href="{% url 'opciones_salados' %}">Salados</a>
+            <a href="{% url 'opciones_cafes' %}"">Cafes</a>
         </div>
       
     </section>
+
+    {% endblock %}
     <!--https://www.youtube.com/watch?v=JX5qDzWDF4U
         
         <a href="{% url 'agregar_pasteleria' %}"> <img class= 'plus' src="{% static 'almendra_app/icons/plus.png' %}" alt=""></a> -->
-
+        {% block populares %}
     <h1 class="titulo">¡LOS MAS POPULARES!</h1>
+
+    {% block js_edit_populares %}
+    <script>
+        function editarProducto_populares(id){
+            Swal.fire({
+                'title':'¿Esta seguro que quiere editar la informacion?',
+                'text':'esta accion no se puede deshace',
+                'icon': 'question',
+                'showCancelButton': 'true',
+                'confirmButtonText': 'Si, Editar',
+                'cancelButtonText': 'No, Cancelar',
+                'confirmButtonColor': '#bc3545',
+            })
+            .then (function(result) {
+                if (result.isConfirmed){
+                    window.location.href = '/editar_populares/' + id + '/'
+                }
+            })
+        }
+    </script>
+    {% endblock %}
+    {% block js_edit_populares_img %}
+    <script>
+        function editarProducto_populares_img(id){
+            Swal.fire({
+                'title':'¿Esta seguro que quiere la foto de portada?',
+                'text':'esta accion no se puede deshace',
+                'icon': 'question',
+                'showCancelButton': 'true',
+                'confirmButtonText': 'Si, Editar',
+                'cancelButtonText': 'No, Cancelar',
+                'confirmButtonColor': '#bc3545',
+            })
+            .then (function(result) {
+                if (result.isConfirmed){
+                    window.location.href = '/editar_populares_img/' + id + '/'
+                }
+            })
+        }
+    </script>
+    {% endblock %}
+
+
+
+
     
         <div class="container">
             
-
+                {% for po in form_populares %}
             <div class="targeta">
-                <img src="{% static 'almendra_app/img/flat_white.jpg' %}" >
-                <h4>Flat White</h4> 
-                <p>$260</p>
+                <img src="{{ po.imagen.url }}" >
+                <h4>{{ po.titulo }}</h4> 
+                <p>{{ po.precio }}</p>
                 <a href="">Mas info</a>
             </div>
+           <a href="#" onclick = 'editarProducto_populares({{ po.id }})'> <img class= 'edit_populares' id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
+           <a href="#" onclick = 'editarProducto_populares_img({{ po.id }})'> <img class= 'edit_img_populares'   src="{% static 'almendra_app/icons/add_img_white.png' %}" alt="" ></a>
 
-            <div class="targeta">
+            {% endfor %}
+          <!--  <div class="targeta">
                 <img src="{% static 'almendra_app/img/doppio.jpeg' %}">
                 <h4>Doppio </h4>
                 <p>$200</p>
@@ -69,15 +121,17 @@
                 <h4>Avocado Toast</h4>
                 <p>$400</p>
                 <a href="">Mas info</a>
-            </div>
+            </div>-->
 {% endblock %}
 
+
         </div>
+        {% block pasteleria %}
 {% block js %}
 <script>
     function eliminarProducto(id){
         Swal.fire({
-            'title':'¿Esta seguro que quiere eliminar?',
+            'title':'¿Esta seguro que quiere eliminar este producto?',
             'text':'esta accion no se puede deshace',
             'icon': 'question',
             'showCancelButton': 'true',
@@ -98,8 +152,8 @@
 <script>
     function editarProducto(id){
         Swal.fire({
-            'title':'¿Esta seguro que quiere editar este producto?',
-            'text':'esta accion no se puede deshace',
+            'title':'¿Esta seguro que quiere editar la informacion?',
+            'text':'esta accion no se puede deshacer',
             'icon': 'question',
             'showCancelButton': 'true',
             'confirmButtonText': 'Si, Editar',
@@ -116,11 +170,31 @@
 {% endblock %}
 
 
+{% block js_edit_pasteleria_img %}
+<script>
+    function editarProducto_img(id){
+        Swal.fire({
+            'title':'¿Esta seguro que cambiar la foto de portada?',
+            'text':'esta accion no se puede deshacer',
+            'icon': 'question',
+            'showCancelButton': 'true',
+            'confirmButtonText': 'Si, Editar',
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonColor': '#bc3545',
+        })
+        .then (function(result) {
+            if (result.isConfirmed){
+                window.location.href = '/editar_pasteleria_img/'+id+'/'
+            }
+        })
+    }
+</script>
+{% endblock %}
 
 
 
 
-        {% block pasteleria %}
+     
         
         <section class="mid_pasteleria">
             <h1 class="titulo_pasteleria" id="pasteleria_id">Pasteleria</h1>
@@ -130,8 +204,11 @@
             {% for p in form %}
             
             <div class="container_pasteleria">
+
+
                  <div class="targeta_pasteleria">
                     {% if p.imagen %}
+
                     <img src={{ p.imagen.url }}>
                     {% endif %}
                     <h4>{{ p.titulo|safe }}</h4>
@@ -140,8 +217,10 @@
                   
                     <p>{{ p.descripcion }}</p>
                     <h3>{{ p.precio }}</h3>
+                    
+                   <a href="#" onclick = 'editarProducto_img({{ p.id }})'> <img class= 'edit_img'   src="{% static 'almendra_app/icons/add_img.png' %}" alt="" ></a>
                    <a href="#" onclick = 'editarProducto({{ p.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
-                   <a href="#" onclick = 'eliminarProducto({{ p.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+                   <a href="#" onclick = 'eliminarProducto({{ p.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete_red.png' %}" alt=""></a>
 
                 </div>
             </div>
@@ -151,12 +230,14 @@
         </section>
     {% endblock %}
 
+
+    {% block brunch %}
     {% block js_edit_brunch %}
     <script>
         function editarProducto_brunch(id){
             Swal.fire({
-                'title':'¿Esta seguro que quiere editar este producto?',
-                'text':'esta accion no se puede deshace',
+                'title':'¿Esta seguro que quiere editar la informacion?',
+                'text':'esta accion no se puede deshacer',
                 'icon': 'question',
                 'showCancelButton': 'true',
                 'confirmButtonText': 'Si, Editar',
@@ -171,12 +252,33 @@
         }
     </script>
     {% endblock %}
+
+    {% block js_edit_brunch_img %}
+<script>
+    function editarProducto_brunch_img(id){
+        Swal.fire({
+            'title':'¿Esta seguro que cambiar la foto de portada?',
+            'text':'esta accion no se puede deshace',
+            'icon': 'question',
+            'showCancelButton': 'true',
+            'confirmButtonText': 'Si, Editar',
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonColor': '#bc3545',
+        })
+        .then (function(result) {
+            if (result.isConfirmed){
+                window.location.href = '/editar_brunch_img/'+id+'/'
+            }
+        })
+    }
+</script>
+{% endblock %}
     {% block js_delete_brunch %}
 <script>
     function eliminarProducto_brunch(id){
         Swal.fire({
-            'title':'¿Esta seguro que quiere eliminar?',
-            'text':'esta accion no se puede deshace',
+            'title':'¿Esta seguro que quiere eliminar este producto?',
+            'text':'esta accion no se puede deshacer',
             'icon': 'question',
             'showCancelButton': 'true',
             'confirmButtonText': 'Si, Eliminar',
@@ -192,7 +294,7 @@
 </script>
 {% endblock %}
 
-    {% block brunch %}
+  
            
         <section class="mid_brunch">
             <h1 class="titulo_brunch">Brunch</h1> 
@@ -212,8 +314,10 @@
                        
                      </ul>
                      <h3>{{ b.precio }}</h3>
+                     <a href="#" onclick = 'editarProducto_brunch_img({{ b.id }})'> <img class= 'edit_img'   src="{% static 'almendra_app/icons/add_img.png' %}" alt="" ></a>
+
                      <a href="#" onclick = 'editarProducto_brunch({{ b.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
-                     <a href="#" onclick = 'eliminarProducto_brunch({{ b.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+                     <a href="#" onclick = 'eliminarProducto_brunch({{ b.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete_red.png' %}" alt=""></a>
   
                 </div>
 
@@ -221,12 +325,15 @@
     </div>
     </section> 
     {% endblock %}
+
+
+    {% block salados %}
     {% block js_edit_salados %}
     <script>
         function editarProducto_salados(id){
             Swal.fire({
-                'title':'¿Esta seguro que quiere editar este producto?',
-                'text':'esta accion no se puede deshace',
+                'title':'¿Esta seguro que quiere editar la informacion?',
+                'text':'esta accion no se puede deshacer',
                 'icon': 'question',
                 'showCancelButton': 'true',
                 'confirmButtonText': 'Si, Editar',
@@ -241,12 +348,33 @@
         }
     </script>
     {% endblock %}
+
+    {% block js_edit_salados_img %}
+<script>
+    function editarProducto_salados_img(id){
+        Swal.fire({
+            'title':'¿Esta seguro que cambiar la foto de portada?',
+            'text':'esta accion no se puede deshace',
+            'icon': 'question',
+            'showCancelButton': 'true',
+            'confirmButtonText': 'Si, Editar',
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonColor': '#bc3545',
+        })
+        .then (function(result) {
+            if (result.isConfirmed){
+                window.location.href = '/editar_salados_img/'+id+'/'
+            }
+        })
+    }
+</script>
+{% endblock %}
             {% block js_delete_salados %}
             <script>
                 function eliminarProducto_salados(id){
                     Swal.fire({
-                        'title':'¿Esta seguro que quiere eliminar?',
-                        'text':'esta accion no se puede deshace',
+                        'title':'¿Esta seguro que quiere eliminar este producto?',
+                        'text':'esta accion no se puede deshacer',
                         'icon': 'question',
                         'showCancelButton': 'true',
                         'confirmButtonText': 'Si, Eliminar',
@@ -262,7 +390,7 @@
             </script>
             {% endblock %}
    
-            {% block salados %}
+           
               <section class="mid_salados">
                 <h1 class="titulo_salados">Salados</h1>
 
@@ -280,8 +408,10 @@
                 
                     <p>{{ s.descripcion }}</p>
                     <h3>{{ s.precio }}</h3>
+
+                    <a href="#" onclick = 'editarProducto_salados_img({{ s.id }})'> <img class= 'edit_img'   src="{% static 'almendra_app/icons/add_img.png' %}" alt="" ></a>
                    <a href="#" onclick = 'editarProducto_salados({{ s.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
-                   <a href="#" onclick = 'eliminarProducto_salados({{ s.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+                   <a href="#" onclick = 'eliminarProducto_salados({{ s.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete_red.png' %}" alt=""></a>
 
                 </div>
             </div>
@@ -291,13 +421,13 @@
         </section>
     {% endblock %}
 
-            
+    {% block bebidas %}
     {% block js_edit_bebidas %}
     <script>
         function editarProducto_bebidas(id){
             Swal.fire({
-                'title':'¿Esta seguro que quiere editar este producto?',
-                'text':'esta accion no se puede deshace',
+                'title':'¿Esta seguro que quiere editar la informacion?',
+                'text':'esta accion no se puede deshacer',
                 'icon': 'question',
                 'showCancelButton': 'true',
                 'confirmButtonText': 'Si, Editar',
@@ -312,12 +442,32 @@
         }
     </script>
     {% endblock %}
+    {% block js_edit_bebidas_img %}
+<script>
+    function editarProducto_bebidas_img(id){
+        Swal.fire({
+            'title':'¿Esta seguro que cambiar la foto de portada?',
+            'text':'esta accion no se puede deshacer',
+            'icon': 'question',
+            'showCancelButton': 'true',
+            'confirmButtonText': 'Si, Editar',
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonColor': '#bc3545',
+        })
+        .then (function(result) {
+            if (result.isConfirmed){
+                window.location.href = '/editar_bebidas_img/'+id+'/'
+            }
+        })
+    }
+</script>
+{% endblock %}
             {% block js_delete_bebidas %}
             <script>
                 function eliminarProducto_bebidas(id){
                     Swal.fire({
-                        'title':'¿Esta seguro que quiere eliminar?',
-                        'text':'esta accion no se puede deshace',
+                       'title':'¿Esta seguro que cambiar la foto de portada?',
+                        'text':'esta accion no se puede deshacer',
                         'icon': 'question',
                         'showCancelButton': 'true',
                         'confirmButtonText': 'Si, Eliminar',
@@ -332,7 +482,7 @@
                 }
             </script>
             {% endblock %}
-            {% block bebidas %}
+           
               <section class="mid_bebidas">
                 <h1 class="titulo_bebidas">Bebidas</h1>
                  
@@ -350,8 +500,9 @@
                 
                     <p>{{ be.descripcion }}</p>
                     <h3>{{ be.precio }}</h3>
+                   <a href="#" onclick = 'editarProducto_bebidas_img({{ be.id }})'> <img class= 'edit_img'   src="{% static 'almendra_app/icons/add_img.png' %}" alt="" ></a> 
                    <a href="#" onclick = 'editarProducto_bebidas({{ be.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
-                   <a href="#" onclick = 'eliminarProducto_bebidas({{ be.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+                   <a href="#" onclick = 'eliminarProducto_bebidas({{ be.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete_red.png' %}" alt=""></a>
 
                 </div>
             </div>
@@ -361,13 +512,13 @@
         </section>
     {% endblock %}
 
-        
+    {% block cafes %}
     {% block js_edit_cafes %}
     <script>
         function editarProducto_cafes(id){
             Swal.fire({
-                'title':'¿Esta seguro que quiere editar este producto?',
-                'text':'esta accion no se puede deshace',
+                'title':'¿Esta seguro que quiere editar la informacion?',
+                'text':'esta accion no se puede deshacer',
                 'icon': 'question',
                 'showCancelButton': 'true',
                 'confirmButtonText': 'Si, Editar',
@@ -382,12 +533,32 @@
         }
     </script>
     {% endblock %}
+    {% block js_edit_cafes_img %}
+<script>
+    function editarProducto_cafes_img(id){
+        Swal.fire({
+            'title':'¿Esta seguro que cambiar la foto de portada?',
+            'text':'esta accion no se puede deshacer',
+            'icon': 'question',
+            'showCancelButton': 'true',
+            'confirmButtonText': 'Si, Editar',
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonColor': '#bc3545',
+        })
+        .then (function(result) {
+            if (result.isConfirmed){
+                window.location.href = '/editar_cafes_img/'+id+'/'
+            }
+        })
+    }
+</script>
+{% endblock %}
             {% block js_delete_cafes %}
             <script>
                 function eliminarProducto_cafes(id){
                     Swal.fire({
-                        'title':'¿Esta seguro que quiere eliminar?',
-                        'text':'esta accion no se puede deshace',
+                        'title':'¿Esta seguro que quiere eliminar este producto?',
+                        'text':'esta accion no se puede deshacer',
                         'icon': 'question',
                         'showCancelButton': 'true',
                         'confirmButtonText': 'Si, Eliminar',
@@ -403,7 +574,7 @@
             </script>
             {% endblock %}
 
-    {% block cafes %}
+    
     
     <section class="mid_cafes">
         <h1 class="titulo_cafes">Cafes</h1>
@@ -420,9 +591,11 @@
           <h4>{{ c.titulo|safe }}</h4>
       
           <p>{{ c.descripcion }}</p>
+
           <h3>{{ c.precio }}</h3>
+         <a href="#" onclick = 'editarProducto_cafes_img({{ c.id }})'> <img class= 'edit_img'   src="{% static 'almendra_app/icons/add_img.png' %}" alt="" ></a>
          <a href="#" onclick = 'editarProducto_cafes({{ c.id }})'> <img class= 'edit'   src="{% static 'almendra_app/icons/edit.png' %}" alt=""></a>
-         <a href="#" onclick = 'eliminarProducto_cafes({{ c.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete.png' %}" alt=""></a>
+         <a href="#" onclick = 'eliminarProducto_cafes({{ c.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/delete_red.png' %}" alt=""></a>
 
       </div>
   </div>

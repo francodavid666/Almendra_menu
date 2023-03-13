@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+     <!--switalert2-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'almendra_app/styles_formulario.css' %}">
+    <title>Almendra Menu</title>
+</head>
+<body>
+  
+    <form class ="form" action="{% url 'agregar_salados' %}" method = "POST" enctype="multipart/form-data">{% csrf_token %}
+      <h2 class="form__title">Agregar un producto en 'Salados'</h2>
+  
+       <div class="form__container">
+            <div class="form_group">
+              <label for="imagen" class="form__label">Imagen:</label>
+              <div class="ckeditor">
+                {{ form.imagen }}
+              {{ form.media }}
+
+            </div>
+          </div>
+          <div class="form_group">
+              <label for="titulo" class="form__label">Titulo:</label>
+              {{ form.titulo }}
+          </div>
+          <div class="form_group">
+            <label for="descr" class="form__label">Descripcion: </label>
+            {{ form.descripcion }}
+        </div>
+          <div class="form_group">
+              <label for="categoria" class="form__label">Informacion:</label>
+              {{ form.informacion }}
+          </div>
+         
+            <div class="form-group">
+            <label for="precio" class="form__label">Precio: </label>
+            {{ form.precio }}
+            </div>
+            
+          
+            <button  class="form__submit" value="entrar" type ="submit" class="boton">Guardar cambios</button>
+      </div>
+      </form>
+     
+  
+
+</body>
+</html>
+
+

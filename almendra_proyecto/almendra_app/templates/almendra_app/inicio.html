@@ -4,86 +4,137 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'almendra_app/styles.css' %}">
+
+     <!--switalert2-->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'almendra_app/styles_inicio_2.css' %}">
     <title>Almendra Menu</title>
 </head>
 <body>
-
-
     {% block header %}
-
     <header>
-        <div class="opciones_icon_div">
-        <a href="#" id="opciones_button"> <img class='opciones_icon' src="{% static 'almendra_app/icons/menu.png' %}" alt=""></a>
+
+        <div class="div_logo">
+            <img src="{% static 'almendra_app/img/logo.png' %}" class="logo" >
+        </div>
+
+        <div class="div_home">
+        <a href="{% url 'opciones' %}" id="home_button">
+            <img class='home_icon' src="{% static 'almendra_app/icons/setting.png' %}" width="24">
+        </a>
     </div>
-      
-            <div class="div_logo">
-                <img src="{% static 'almendra_app/img/logo.png' %}" class="logo" >
-            </div>
-       
+            
+   
+                
     </header>
-    
+
+   
     <section class="menu_horizontal">
         <div class="menu_container">
+            <a href="{% url 'inicio' %}">Todos</a>
+        
             <a href="{% url 'pasteleria' %}">Pasteleria</a>
-           <!-- <a href="{% url 'targetas_form' %}">Desayunos & Meriendas</a>
-           --> <a href="{% url 'brunch' %}">Brunch´s</a>
+           <!-- <a href="">Desayunos & Meriendas</a>-->
+            <a href="{% url 'brunch' %}">Brunch´s</a>
             <a href="{% url 'bebidas' %}">Bebidas</a>
             <a href="{% url 'salados' %}">Salados</a>
             <a href="{% url 'cafes' %}"">Cafes</a>
         </div>
       
     </section>
-    {% endblock %}
+    <!--https://www.youtube.com/watch?v=JX5qDzWDF4U
+        
+    
+     
+        <a href="{% url 'agregar_pasteleria' %}"> <img class= 'plus' src="{% static 'almendra_app/icons/plus.png' %}" alt=""></a> -->
+
+        {% endblock %}        
 {% block populares %}
-    <h1 class="titulo">Los mas populares</h1>
+
+
+    <h1 class="titulo">¡LOS MAS POPULARES!</h1>
     
         <div class="container">
             
+                {% for po in form_populares %}
 
+                <div class="modal" id='{{ po.titulo }}'>
+                    <div id="modal_contenido" class="modal_contenido">
+                        {% if po.imagen %}
+                    <img src={{ po.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+                    {% endif %}
+                        <h4>{{ po.titulo }}</h4>
+                        <p>{{ po.informacion|safe }}</p>
+                        <h3>{{ po.precio }}</h3>
+                    </div>
+                </div>
+                
             <div class="targeta">
-                <img src="{% static 'almendra_app/img/flat_white.jpg' %}" >
-                <h4>Flat White</h4> 
-                <p>$260</p>
+                <img src="{{ po.imagen.url }}" id = '{{ p.id }}' onclick="abrir_funcion_populares({{ po.id }},'{{ po.titulo }}')">
+                <h4>{{ po.titulo }}</h4> 
+                <p>{{ po.precio }}</p>
                 <a href="">Mas info</a>
             </div>
+           <!--<img class= 'delete'  src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>--> 
 
-            <div class="targeta">
-                <img src="{% static 'almendra_app/img/doppio.jpeg' %}">
-                <h4>Doppio </h4>
-                <p>$200</p>
-                <a href="">Mas info</a>
-            </div>
-
-
-            <div class="targeta">
-                <img src="{% static 'almendra_app/img/avocado.jpeg' %}">
-                <h4>Avocado Toast</h4>
-                <p>$400</p>
-                <a href="">Mas info</a>
-            </div>
-
-{% endblock %}
-
+            {% endfor %}
         </div>
+{% endblock %} 
+<!--<script>
 
+    function abrir_funcion(id,titulo){
+        const boton = document.getElementById(id)
+        const modal = document.getElementById(titulo)
 
-        {% block pasteleria %}
-        <h1 class="titulo_pasteleria">Pasteleria</h1>
+        console.log(boton)
+        console.log(modal)
+    }
+</script>-->
+
+            {% block pasteleria %}
+        
         <section class="mid_pasteleria">
+            <h1 class="titulo_pasteleria" id="pasteleria_id">Pasteleria</h1>
 
             {% for p in form %}
+
+          
+
+
+
+            <div class="modal" id='{{ p.titulo }}'>
+                <div id="modal_contenido" class="modal_contenido">
+                    {% if p.imagen %}
+                    <img src={{ p.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+                    {% endif %}
+                    <h4>{{ p.titulo }}</h4>
+                    <p>{{ p.informacion|safe }}</p>
+                    <h3>{{ p.precio }}</h3>
+                </div>
+            </div>
             
+          
+
             <div class="container_pasteleria">
                  <div class="targeta_pasteleria">
-                    <img src={{ p.imagen|safe }}
-                    
+                    {% if p.imagen %}
+
+                 <img src={{ p.imagen.url }} onclick="modal"> 
+
+                            
+                    {% endif %}
                     <h4>{{ p.titulo|safe }}</h4>
-                
                     <p>{{ p.descripcion }}</p>
                     <h3>{{ p.precio }}</h3>
+                    <img class= 'delete' id = '{{ p.id }}' onclick="abrir_funcion({{ p.id }},'{{ p.titulo }}')" src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>
+                   <!-- <a href="#" onclick = 'informacion_brunch({{ b.id }})'> <img class= 'delete'id= '{{ p.categoria }}' src="{% static 'almendra_app/icons/question.png' %}" alt=""></a>
+
+                   <img class= 'delete' id = '{{ p.categoria }}' src="{% static 'almendra_app/icons/question.png' %}" alt=""></a>
+                   -->
                 </div>
             </div>
             
@@ -92,107 +143,170 @@
         </section>
     {% endblock %}
 
+  
+   
     {% block brunch %}
-   <section class="mid_brunch">
-        
-                <h1 class="titulo_brunch">Brunch</h1>  
-    <div class="container_brunch">
-                <div class="targeta_brunch">
-                    <img src="{% static 'almendra_app/img/medialuna.jpeg' %}" class="opcion1" id="opcion1ID">
-                    <h4>{{ p.titulo }}</h4>
-                    <ul>
-                        <li> 2 Limonadas (opción exprimido $100 c/u)</li>
-                        <li> 2 Infusiones o café (a elección)</li>
-                        <li> 1 Avocado Toast</li>
-                        <li> 1 Croissant con jamón y queso</li>
-                        <li> 1 Porción de budín (a elección)</li>
-                     </ul>
-                     <h3>$2100</h3>
+           
+        <section class="mid_brunch">
+            <h1 class="titulo_brunch">Brunch</h1> 
+
+
+                  {% for b in form_brunch %}
+
+                  <div class="modal" id='{{ b.titulo }}'>
+                    <div id="modal_contenido" class="modal_contenido">
+                        {% if b.imagen %}
+                        <img src={{ b.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+                        {% endif %}
+                        <h4>{{ b.titulo }}</h4>
+                        <p>{{ b.informacion|safe }}</p>
+                        <h3>{{ b.precio }}</h3>
+                    </div>
                 </div>
 
+                <div class="container_brunch">
                 <div class="targeta_brunch">
-                    <img src="{% static 'almendra_app/img/medialuna.jpeg' %}"class="opcion2" id="opcion2ID">
-                    <h4>Opcion 2</h4>
+                    {% if b.imagen %}
+                    <img src={{ b.imagen.url }}>
+                    {% endif %}
+                  <h4>{{ b.titulo }}</h4>
                     <ul>
-                       <li> 2 Limonadas (opción exprimido $100 c/u)</li>
-                       <li> 2 Infusiones o café (a elección)</li>
-                       <li> 1 Panini</li>
-                       <li> 1 Yogurt con granola</li>
-                       <li> 1 Porción de budín (a  elección)</li>
-                    </ul>
-                    <h3>$2300</h3>
-                
+                        <li> {{ b.descripcion|safe }}</li>
+                       
+                     </ul>
+                     <h3>{{ b.precio }}</h3>
+                     <img class= 'delete' id = '{{ b.id }}' onclick="abrir_funcion_brunch({{ b.id }},'{{ b.titulo }}')" src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>
+
                 </div>
+
+             {% endfor %}
     </div>
     </section> 
     {% endblock %}
+   
+          
+            {% block salados %}
+              <section class="mid_salados">
+                <h1 class="titulo_salados">Salados</h1>
 
-    {% block salados %}
-    
-        <h1 class="titulo_salado">Salados</h1>
-<section class="mid_salado">
-            {% for p in  form_salado %}
-                <div class="container_salado">
-        
-                    <div class="container_salado">
-                        <div class="targeta_salado">
-                        <img src={{ p.imagen|safe }}
-                        <h4>{{ p.titulo|safe }}</h4>
-                    
-                        <p>{{ p.descripcion }}</p>
-                        <h3>{{ p.precio }}</h3>
-                    </div>
+
+
+            {% for s in form_salados %}
+
+            <div class="modal" id='{{ s.titulo }}'>
+                <div id="modal_contenido" class="modal_contenido">
+                    {% if s.imagen %}
+                    <img src={{ s.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+                    {% endif %}
+                    <h4>{{ s.titulo }}</h4>
+                    <p>{{ s.informacion|safe }}</p>
+                    <h3>{{ s.precio }}</h3>
                 </div>
+            </div>
+            
+            <div class="container_salados">
+                 <div class="targeta_salados">
+                    {% if s.imagen %}
+                    <img src={{ s.imagen.url }}>
+                    {% endif %}
+                    <h4>{{ s.titulo|safe }}</h4>
+                
+                    <p>{{ s.descripcion|safe }}</p>
+                    <h3>{{ s.precio }}</h3>
 
-                    
-        </div>
-    {% endfor %}
-</section> 
-            {% endblock %}
+                    <img class= 'delete' id = '{{ s.id }}' onclick="abrir_funcion_salados({{ s.id }},'{{ s.titulo }}')" src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>
+                
+                </div>
+            </div>
+            
+            
+            {% endfor %}
+        </section>
+    {% endblock %}
 
+           
             {% block bebidas %}
-            <h1 class="titulo_bebidas">Bebidas</h1>
-            <section class="mid_bebidas">
-    
-                {% for p in form_bebidas %}
-                
-                <div class="container_bebidas">
-                     <div class="targeta_bebidas">
-                        <img src={{ p.imagen|safe }}
-                        <h4>{{ p.titulo|safe }}</h4>
-                    
-                        <p>{{ p.descripcion }}</p>
-                        <h3>{{ p.precio }}</h3>
-                    </div>
+              <section class="mid_bebidas">
+                <h1 class="titulo_bebidas">Bebidas</h1>
+                 
+
+
+            {% for be in form_bebidas %}
+
+          
+
+            <div class="modal" id='{{ be.titulo }}'>
+                <div id="modal_contenido" class="modal_contenido">
+                    {% if be.imagen %}
+                    <img src={{ be.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+                    {% endif %}
+                    <h4>{{ be.titulo }}</h4>
+                    <p>{{ be.informacion|safe }}</p>
+                    <h3>{{ be.precio }}</h3>
                 </div>
+            </div>
+            
+            <div class="container_bebidas">
+                 <div class="targeta_bebidas">
+                    {% if be.imagen %}
+                    <img src={{ be.imagen.url }}>
+                    {% endif %}
+                    <h4>{{ be.titulo|safe }}</h4>
                 
-                
-                {% endfor %}
-            </section>
+                    <p>{{ be.descripcion }}</p>
+                    <h3>{{ be.precio }}</h3>
+                    <img class= 'delete' id = '{{ be.id }}' onclick="abrir_funcion_bebidas({{ be.id }},'{{ be.titulo }}')" src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>
 
-            {% endblock %}
-            {% block cafes %}
-
-            <h1 class="titulo_bebidas">Cafes</h1>
-            <section class="mid_cafes">
-    
-                {% for p in form_cafes %}
-                
-                <div class="container_cafes">
-                     <div class="targeta_cafes">
-                        <img src={{ p.imagen|safe }}
-                        <h4>{{ p.titulo|safe }}</h4>
-                    
-                        <p>{{ p.descripcion }}</p>
-                        <h3>{{ p.precio }}</h3>
-                    </div>
                 </div>
-                
-                
-                {% endfor %}
-            </section>
+            </div>
+            
+            
+            {% endfor %}
+        </section>
+    {% endblock %}
 
+        
+   
+
+    {% block cafes %}
+    
+    <section class="mid_cafes">
+        <h1 class="titulo_cafes">Cafes</h1>
+
+
+  {% for c in form_cafes %}
+
+  <div class="modal" id='{{ c.titulo }}'>
+    <div id="modal_contenido" class="modal_contenido">
+        {% if c.imagen %}
+        <img src={{ c.imagen.url }} id="modal_imagen" class="modal_imagen"> 
+        {% endif %}
+        <h4>{{ c.titulo }}</h4>
+        <p>{{ c.informacion|safe }}</p>
+        <h3>{{ c.precio }}</h3>
+    </div>
+</div>
+  
+  <div class="container_cafes">
+       <div class="targeta_cafes">
+        {% if c.imagen %}
+        <img src={{ c.imagen.url }}>
+        {% endif %}
+          <h4>{{ c.titulo|safe }}</h4>
+      
+          <p>{{ c.descripcion }}</p>
+
+          <h3>{{ c.precio }}</h3>
+          <img class= 'delete' id = '{{ c.id }}' onclick="abrir_funcion_cafes({{ c.id }},'{{ c.titulo }}')" src="{% static 'almendra_app/icons/question.png' %}" name="boton50"></a>
+
+      </div>
+  </div>
+  
+  
+  {% endfor %}
+</section>
 {% endblock %}
+
  <footer>
 
  </footer>
@@ -200,5 +314,16 @@
   <script src="{% static 'almendra_app/script_inicio.js' %}"></script>
   <!--SWEETALERT-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% if messages %}
+  {% for m in messages %}
+    <script>
+        Swal.fire({
+            'title':'felicitaciones',
+            'text':  '{{m}}',
+            'icon': 'success',
+        })
+    </script>
+{% endfor%}
+{% endif %}
 </body>
 </html>

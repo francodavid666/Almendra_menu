@@ -20,7 +20,7 @@ const home_button = document.getElementById('home_button')
 home_button.addEventListener('click', ()=>{
   
   Swal.fire({
-      'title':'¿Esta que quiere ir al menu publico?',
+      'title':'¿Esta seguro que quiere ir al menu publico?',
        
       'icon': 'question',
       'showCancelButton': 'true',

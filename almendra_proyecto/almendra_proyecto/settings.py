@@ -55,8 +55,8 @@ CKEDITOR_CONFIGS = {
 
         ],
          
-         'width': '80%',
-         'height': '30%',
+         'width': '100%',
+         'height': '1%',
         'toolbarCanCollapse': False,
         'defaultLanguage' : 'es',
 

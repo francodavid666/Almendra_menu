@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'almendra_app/styles.css' %}">
+    <title>Almendra Menu</title>
+</head>
+<body>
+
+
+    {% block header %}
+
+    <header>
+        <div class="opciones_icon_div">
+        <a href="#" id="opciones_button"> <img class='opciones_icon' src="{% static 'almendra_app/icons/menu.png' %}" alt=""></a>
+    </div>
+      
+            <div class="div_logo">
+                <img src="{% static 'almendra_app/img/logo.png' %}" class="logo" >
+            </div>
+       
+    </header>
+    
+    <section class="menu_horizontal">
+        <div class="menu_container">
+            <a href="{% url 'pasteleria' %}">Pasteleria</a>
+           <!-- <a href="{% url 'targetas_form' %}">Desayunos & Meriendas</a>
+           --> <a href="{% url 'brunch' %}">Brunch´s</a>
+            <a href="{% url 'bebidas' %}">Bebidas</a>
+            <a href="{% url 'salados' %}">Salados</a>
+            <a href="{% url 'cafes' %}"">Cafes</a>
+        </div>
+      
+    </section>
+    {% endblock %}
+{% block populares %}
+    <h1 class="titulo">Los mas populares</h1>
+    
+        <div class="container">
+            
+
+            <div class="targeta">
+                <img src="{% static 'almendra_app/img/flat_white.jpg' %}" >
+                <h4>Flat White</h4> 
+                <p>$260</p>
+                <a href="">Mas info</a>
+            </div>
+
+            <div class="targeta">
+                <img src="{% static 'almendra_app/img/doppio.jpeg' %}">
+                <h4>Doppio </h4>
+                <p>$200</p>
+                <a href="">Mas info</a>
+            </div>
+
+
+            <div class="targeta">
+                <img src="{% static 'almendra_app/img/avocado.jpeg' %}">
+                <h4>Avocado Toast</h4>
+                <p>$400</p>
+                <a href="">Mas info</a>
+            </div>
+
+{% endblock %}
+
+        </div>
+
+
+        {% block pasteleria %}
+        <h1 class="titulo_pasteleria">Pasteleria</h1>
+        <section class="mid_pasteleria">
+
+            {% for p in form %}
+            
+            <div class="container_pasteleria">
+                 <div class="targeta_pasteleria">
+                    <img src={{ p.imagen|safe }}
+                    
+                    <h4>{{ p.titulo|safe }}</h4>
+                
+                    <p>{{ p.descripcion }}</p>
+                    <h3>{{ p.precio }}</h3>
+                </div>
+            </div>
+            
+            
+            {% endfor %}
+        </section>
+    {% endblock %}
+
+    {% block brunch %}
+   <section class="mid_brunch">
+        
+                <h1 class="titulo_brunch">Brunch</h1>  
+    <div class="container_brunch">
+                <div class="targeta_brunch">
+                    <img src="{% static 'almendra_app/img/medialuna.jpeg' %}" class="opcion1" id="opcion1ID">
+                    <h4>{{ p.titulo }}</h4>
+                    <ul>
+                        <li> 2 Limonadas (opción exprimido $100 c/u)</li>
+                        <li> 2 Infusiones o café (a elección)</li>
+                        <li> 1 Avocado Toast</li>
+                        <li> 1 Croissant con jamón y queso</li>
+                        <li> 1 Porción de budín (a elección)</li>
+                     </ul>
+                     <h3>$2100</h3>
+                </div>
+
+                <div class="targeta_brunch">
+                    <img src="{% static 'almendra_app/img/medialuna.jpeg' %}"class="opcion2" id="opcion2ID">
+                    <h4>Opcion 2</h4>
+                    <ul>
+                       <li> 2 Limonadas (opción exprimido $100 c/u)</li>
+                       <li> 2 Infusiones o café (a elección)</li>
+                       <li> 1 Panini</li>
+                       <li> 1 Yogurt con granola</li>
+                       <li> 1 Porción de budín (a  elección)</li>
+                    </ul>
+                    <h3>$2300</h3>
+                
+                </div>
+    </div>
+    </section> 
+    {% endblock %}
+
+    {% block salados %}
+    
+        <h1 class="titulo_salado">Salados</h1>
+<section class="mid_salado">
+            {% for p in  form_salado %}
+                <div class="container_salado">
+        
+                    <div class="container_salado">
+                        <div class="targeta_salado">
+                        <img src={{ p.imagen|safe }}
+                        <h4>{{ p.titulo|safe }}</h4>
+                    
+                        <p>{{ p.descripcion }}</p>
+                        <h3>{{ p.precio }}</h3>
+                    </div>
+                </div>
+
+                    
+        </div>
+    {% endfor %}
+</section> 
+            {% endblock %}
+
+            {% block bebidas %}
+            <h1 class="titulo_bebidas">Bebidas</h1>
+            <section class="mid_bebidas">
+    
+                {% for p in form_bebidas %}
+                
+                <div class="container_bebidas">
+                     <div class="targeta_bebidas">
+                        <img src={{ p.imagen|safe }}
+                        <h4>{{ p.titulo|safe }}</h4>
+                    
+                        <p>{{ p.descripcion }}</p>
+                        <h3>{{ p.precio }}</h3>
+                    </div>
+                </div>
+                
+                
+                {% endfor %}
+            </section>
+
+            {% endblock %}
+            {% block cafes %}
+
+            <h1 class="titulo_bebidas">Cafes</h1>
+            <section class="mid_cafes">
+    
+                {% for p in form_cafes %}
+                
+                <div class="container_cafes">
+                     <div class="targeta_cafes">
+                        <img src={{ p.imagen|safe }}
+                        <h4>{{ p.titulo|safe }}</h4>
+                    
+                        <p>{{ p.descripcion }}</p>
+                        <h3>{{ p.precio }}</h3>
+                    </div>
+                </div>
+                
+                
+                {% endfor %}
+            </section>
+
+{% endblock %}
+ <footer>
+
+ </footer>
+
+  <script src="{% static 'almendra_app/script_inicio.js' %}"></script>
+  <!--SWEETALERT-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
